@@ -11,4 +11,9 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+if Rails.env.development?
+  # This fixes an issue where grapiql assets aren't precompiled on dev
+  # and aren't available on prod
+  Rails.application.config.assets.precompile +=
+    %w[graphiql/rails/application.css graphiql/rails/application.js]
+end
